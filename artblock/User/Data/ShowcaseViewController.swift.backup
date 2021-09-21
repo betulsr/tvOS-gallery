@@ -1,0 +1,105 @@
+//
+//  ImageViewController.swift
+//  artblock
+//
+//  Created by betül s on 2021-07-27.
+//
+
+import UIKit
+import Foundation
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import Kingfisher
+
+class ShowcaseViewController: UIViewController {
+    var showcase: Showcase!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var pageControl: UIPageControl!
+    
+    var timer: Timer?
+    var currentIndex = 0
+    var images = [UIImage(named: "p2")]
+        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if(showcase.artworkUrls?.count ?? 0 == 0){
+            print("[app] No artwork")
+        }
+
+//        self.showcase?.artworkUrls?.forEach{ art in
+//            downloadImage(with: art) { image in
+//                self.images.append(image)
+//                self.pageControl.numberOfPages = self.images.count
+//                print("[app] Pages: ", self.images.count)
+//                self.collectionView.reloadData()
+//            }
+//        }
+        
+//        pageControl.numberOfPages = images.count
+//        print("[app] Pages: ", images.count)
+        startTimer()
+    }
+
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    
+    public func downloadImage(with urlString : String, imageCompletionHandler: @escaping (UIImage) -> Void){
+            guard let url = URL.init(string: urlString) else {
+                print("[app] Invalid URL: ", urlString)
+                return;
+            }
+            let resource = ImageResource(downloadURL: url)
+            
+            KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
+                switch result {
+                case .success(let value):
+                    print("[app] Image loaded: ", urlString)
+                    imageCompletionHandler(value.image)
+                case .failure:
+                    print("[app] Failed to load image: ", urlString)
+                }
+            }
+        }
+    
+    @objc func timerAction() {
+        let desiredScrollPosition = (currentIndex < images.count - 1) ? currentIndex + 1 : 0
+        collectionView.scrollToItem(at: IndexPath(item: desiredScrollPosition, section: 0), at: .centeredHorizontally, animated: true)
+    }
+}
+
+extension ShowcaseViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        print("[app] collectionView numberOfSections")
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("[app] collectionView numberOfItemsInSection", section, images.count)
+        return images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath) as! CollectionViewCell
+        
+//        self.showcase!.artworkUrls?.forEach{ art in
+//            downloadImage(with: art) { image in
+//                self.images.append(image)
+//            }
+//        }
+        cell.image = self.images[indexPath.item]
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        currentIndex = Int( scrollView.contentOffset.x / collectionView.frame.size.width)
+        pageControl.currentPage = currentIndex
+    }
+}

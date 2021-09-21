@@ -1,0 +1,6 @@
+framework module Pods_artblockTests {
+  umbrella header "Pods-artblockTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

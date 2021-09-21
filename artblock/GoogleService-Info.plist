@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>659480706298-5nih1ctap5iv09bs4lasr95la6a0gi2d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.659480706298-5nih1ctap5iv09bs4lasr95la6a0gi2d</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD02txDvyL2Ih8q9a-CphxOHmUvZlpTee8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>659480706298</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.artblock.displayApp</string>
+	<key>PROJECT_ID</key>
+	<string>sam-artblock</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sam-artblock.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:659480706298:ios:abf038804ea8954d911d43</string>
+	<key>DATABASE_URL</key>
+	<string>https://sam-artblock-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

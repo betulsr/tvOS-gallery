@@ -1,0 +1,18 @@
+{
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "images" : [
+    {
+      "idiom" : "tv",
+      "scale" : "1x",
+      "filename" : "Artblock-Icon-Black.png"
+    },
+    {
+      "idiom" : "tv",
+      "scale" : "2x",
+      "filename" : "Artblock-Icon-Black@2x.png"
+    }
+  ]
+}
